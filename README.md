@@ -9,6 +9,7 @@ A multiplayer client needs a bunch of features. Ideally they would be modular so
  - Being able to start the game given player addresses and game parameters
  - Matchmaking, a process that produces player addresses and game parameters
  - A mod loader, primarily for UserPatch, WololoKingdoms and small trees
+ - Game patches (UP / WK)
  - A mod repository
  - A spectator server
 
@@ -22,10 +23,22 @@ For PlayAge I want this to be decentralised to the farthest possible extent, but
 
 ## Mod loader
 
-UserPatch has a CLI that can somehow be used without the UI.
-WololoKingdoms can be installed programmatically with https://github.com/AoE2CommunityGitHub/WololoKingdoms/pull/23.
+For other stuff, a DLL can be injected when the game boots. Different game types can be started with `GAME=UPMODNAME` flag, for 'full conversion' like mods.
 
-For other stuff, a DLL can be injected when the game boots.
+Graphic mods and such can be loaded in by a DLL fairly easily.
+Custom language strings from multiple mods can be loaded using aoc-language-ini.
+
+Random maps and scenarios could just be downloaded into the game folder, but it might also be nice to have a separate entry in the random maps list on the game setup screen for that stuff. Then when starting a game, the DLL mods could auto-install the mod containing those maps, bypassing AoC's slow builtin file sharing.
+
+## Game patches
+
+UserPatch can be installed programmatically with some command line flags. The `-i` flag does a UI-less installation. `-f` can be used to set config fields. 1 to enable, 0 to disable.
+
+```
+SetupAoC.exe -i -f:1010101010101010
+```
+
+WololoKingdoms can be installed programmatically with https://github.com/AoE2CommunityGitHub/WololoKingdoms/pull/23.
 
 ## Mod repository
 
